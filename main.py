@@ -27,4 +27,4 @@ with gr.Blocks() as app:
   submit_button.click(fn=inference, inputs=[input_text], outputs=[output_text, output_image, info_text, status_text])
   reset_button.click(fn=reset, outputs=[input_text, output_text, output_image, info_text, status_text])
 
-app.launch(share=False)
+app.launch(share=True)

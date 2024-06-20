@@ -15,7 +15,7 @@ def get_stream(user_prompt, system_prompt):
   stream = client.chat.completions.create(
     # model="gpt-4-turbo-preview",
     # model="gpt-3.5-turbo",
-    model="moonshot-v1-128k",
+    model="moonshot-v1-8k",
     messages=messages,
     stream=True,
     timeout=120,
