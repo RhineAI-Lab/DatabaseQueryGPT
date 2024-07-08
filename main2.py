@@ -1,5 +1,5 @@
 import gradio as gr
-from inference2 import inference
+from inference3 import inference
 
 
 def add_message(history, message):
