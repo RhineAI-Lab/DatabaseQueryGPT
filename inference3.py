@@ -103,6 +103,7 @@ def inference(history):
         df = pd.read_csv(StringIO(processed_data))
         markdown_table = df.to_markdown(index=True)
       except Exception as e:
+        print(e)
         markdown_table = data
       
       history.append([None, 'SQL Query Result:\n\n' + markdown_table])
