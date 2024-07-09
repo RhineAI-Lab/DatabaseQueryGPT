@@ -1,7 +1,8 @@
 import time
+import pandas as pd
+from io import StringIO
 
 from structure import get_structure_info, execute_sql
-from PIL import Image
 from call.gpt4 import call, call_generator
 
 
@@ -92,7 +93,16 @@ def inference(history):
       sql_query = last_result.split('```sql')[1].split('```')[0].strip()
       print(f'SQL:\n{sql_query}\n')
       query_result = execute_sql(sql_query)
-      history.append([None, 'SQL Query Result:\n\n' + query_result])
+      
+      # 处理SQL成Markdown表格
+      data = query_result.strip()
+      lines = data.split('\n')
+      processed_lines = [','.join(line.split()) for line in lines]
+      processed_data = '\n'.join(processed_lines)
+      df = pd.read_csv(StringIO(processed_data))
+      markdown_table = df.to_markdown(index=True)
+      
+      history.append([None, 'SQL Query Result:\n\n' + markdown_table])
       yield history
       print(f'Query Result:\n{query_result}')
       
