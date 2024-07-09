@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.engine.reflection import Inspector
 import pandas as pd
 
@@ -32,7 +32,7 @@ def get_structure_info():
 def execute_sql(sql_query):
   with engine.connect() as connection:
     try:
-      result = connection.execute(sql_query)
+      result = connection.execute(text(sql_query))
       if sql_query.lower().strip().startswith('select'):
         df = pd.DataFrame(result.fetchall())
         df.columns = result.keys()

@@ -93,14 +93,17 @@ def inference(history):
       sql_query = last_result.split('```sql')[1].split('```')[0].strip()
       print(f'SQL:\n{sql_query}\n')
       query_result = execute_sql(sql_query)
-      
-      # 处理SQL成Markdown表格
       data = query_result.strip()
-      lines = data.split('\n')
-      processed_lines = [','.join(line.split()) for line in lines]
-      processed_data = '\n'.join(processed_lines)
-      df = pd.read_csv(StringIO(processed_data))
-      markdown_table = df.to_markdown(index=True)
+      
+      try:
+        # 处理SQL成Markdown表格
+        lines = data.split('\n')
+        processed_lines = [','.join(line.split()) for line in lines]
+        processed_data = '\n'.join(processed_lines)
+        df = pd.read_csv(StringIO(processed_data))
+        markdown_table = df.to_markdown(index=True)
+      except Exception as e:
+        markdown_table = data
       
       history.append([None, 'SQL Query Result:\n\n' + markdown_table])
       yield history
