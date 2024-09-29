@@ -27,4 +27,4 @@ with gr.Blocks(css=open('./main2.css', mode='r', encoding='utf-8').read()) as de
     bot_msg.then(lambda: gr.MultimodalTextbox(interactive=True, file_types=["image"], placeholder="Enter message or upload file...", show_label=False), None, [chat_input])
 
 demo.queue()
-demo.launch()
+demo.launch(server_name='0.0.0.0', server_port=7800)
