@@ -1,3 +1,7 @@
-secret
 .idea
+.venv
+uv.lock
+secret
 /output
+/__pycache__
+/call/__pycache__
